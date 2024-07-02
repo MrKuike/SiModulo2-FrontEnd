@@ -1,0 +1,66 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-8"> 
+    <h1>{{nombre}}</h1>
+    <form>
+        <table class="table table-striped">
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="eventName" class="form-label">Nombre del evento</label> 
+                    </td>
+                    <td>
+                        <input type="text" disabled="true" class="form-control" id="eventName" value={{nombre}}>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="eventDate" class="form-label">Fecha del evento</label>
+                    </td>
+                    <td>
+                        <input type="date" disabled="true" class="form-control" id="eventDate" value={{fecha}}>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="eventTime" class="form-label">Horario</label>
+                    </td>
+                    <td>
+                        <input type="text" disabled="true" class="form-control" id="eventTime" value={{horario}}>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="eventLocation" class="form-label">Lugar del evento</label>
+                    </td>
+                    <td>
+                        <input type="text" disabled="true" class="form-control" id="eventLocation" value={{lugar}}>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="eventDescription" class="form-label">Descripción del evento</label>
+                    </td>
+                    <td>
+                        <textarea class="form-control" disabled="true" id="eventDescription" rows="3">{{descripcion}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="row justify-content-end">
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary">Confirmar Asistencia</button>
+                            </div>
+                            
+                        </div>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      
+    </form>
+  </div>
+  </div>
+  </div>
