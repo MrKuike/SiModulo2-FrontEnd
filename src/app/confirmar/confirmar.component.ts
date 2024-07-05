@@ -1,21 +1,49 @@
 import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QRCodeModule } from 'angularx-qrcode';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ServEventoService } from '../services/serv-evento.service';
 
 @Component({
   selector: 'app-confirmar',
   standalone: true,
-  imports: [CommonModule, QRCodeModule],
+  imports: [CommonModule, QRCodeModule, HttpClientModule],
   templateUrl: './confirmar.component.html',
   styleUrl: './confirmar.component.css'
 })
 export class ConfirmarComponent {
+
+
+  constructor(private http: HttpClient, private servEventoService: ServEventoService){}
+  
+  ngOnInit(){
+    console.log(this.servEventoService.obtRut());
+    
+    if(!this.servEventoService.obtRut()) return
+    this.http.get<{
+      idEvento: number,
+      nombre: string,
+      fecha: string,
+      horario: string,
+      lugar: string,
+      descripciN: string
+  }>(`http://192.168.71.35:3000/obtInfoEvento/${this.servEventoService.obtIdEvento()}`).subscribe((response) =>{
+    console.log(response);
+    
+      this.nombre = response.nombre
+      this.fecha = response.fecha
+      this.horario = response.fecha
+      this.lugar = response.lugar
+      this.descripcion = response.descripciN
+    });
+  }
+    
   // DATOS DEL EVENTO
-  nombre: string = "Arica Poker Tour";
-  fecha: string  = "2024-06-24";
-  horario: string = "Desde las 18:00 hrs.";
-  lugar: string = "Sala Belén 2 Universidad de Tarapacá Campus";
-  descripcion: string = "El torneo de Poker más grande del norte de Chile.";
+  nombre: string = "";
+  fecha: string  = "";
+  horario: string = "";
+  lugar: string = "";
+  descripcion: string = "";
   codigo: string = "";
   qrinfo: string = "";
 
@@ -33,5 +61,10 @@ export class ConfirmarComponent {
     this.visible = false;
     this.codigo = codigo;
     this.qrinfo = codigo;
+
+    this.http.patch(`http://192.168.71.35:3000/confirmarAsistencia/${this.servEventoService.obtIdEvento()}/${this.servEventoService.obtRut()}`, 'any')
+
+    console.log(this.servEventoService.obtIdEvento());
+    console.log(this.servEventoService.obtRut());
   }
 }
