@@ -62,7 +62,14 @@ export class ConfirmarComponent {
     this.codigo = codigo;
     this.qrinfo = codigo;
 
-    this.http.patch(`http://192.168.71.35:3000/confirmarAsistencia/${this.servEventoService.obtIdEvento()}/${this.servEventoService.obtRut()}`, 'any')
+    this.http.patch(`http://192.168.71.35:3000/confirmarAsistencia/${this.servEventoService.obtIdEvento()}/${this.servEventoService.obtRut()}`, {estado: 1}).subscribe({
+      next: (response) => {
+        console.log('Estado actualizado:', response);
+      },
+      error: (error) => {
+        console.error('Error actualizando el estado:', error);
+      }
+    });
 
     console.log(this.servEventoService.obtIdEvento());
     console.log(this.servEventoService.obtRut());
